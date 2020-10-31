@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Questions & Answers {% endblock %}
+
+{% block content %}
+
+    <div class="container theme-showcase" role="main">
+      <div class="page-header">
+        <h1>Answered Questions</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="list-group">
+            {% if not user %}
+            <h1>You need to login!!!</h1>
+            {% elif user['expert'] == 'False' %}
+            <h1>No questions for you</h1>
+            {% else %}
+            {% for quest in questions %}
+            <a href="/question/{{ quest['id'] }}" class="list-group-item">
+              <h4 class="list-group-item-heading">{{ quest['question_text'] }}</h4>
+              <p class="list-group-item-text">Asked by: {{ quest['name'] }}</p>
+              <p class="list-group-item-text">Answered by: {{ user['name'] }}</p>
+            </a>
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div><!-- /.col-lg-12 -->
+      </div>
+
+    </div> <!-- /container -->
+
+{% endblock %}

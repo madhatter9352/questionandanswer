@@ -1,0 +1,29 @@
+ <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('index') }}">Questions & Answers</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+            {% if not user %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
+            {% if user and user['admin'] == 'False' and user['expert'] == 'False' %}
+            <li><a href="{{ url_for('ask') }}">Ask Question</a></li>
+            {% endif %}
+            {% if user and user['expert'] == 'True' %}
+            <li><a href="{{ url_for('unanswered') }}">Answer Questions</a></li>
+            {% endif %}
+            {% if user and user['admin'] == 'True' %}
+            <li><a href="{{ url_for('users') }}">User Setup</a></li>
+            {% endif %}
+            {% if user %}
+            <li><a href="{{ url_for('logout') }}">Logout, {{ user['name'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
